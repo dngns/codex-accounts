@@ -18,6 +18,8 @@ The icon was designed specifically for this repository in this development sessi
 | `assets/AppIcon.svg` | Generated editable geometry from that script | MIT where applicable |
 | `assets/AppIcon.png` | Generated 1024px preview from that script | MIT where applicable |
 | `AppIcon.icns` in the app | Generated PNG representations packaged by Apple's `iconutil` | Same project-artwork license; no Apple artwork included |
+| `assets/showcase.png`, `assets/quickstart.png` | Source-derived offscreen native UI render with fixture labels and project-authored composition | MIT where applicable; see `docs/SHOWCASE.md` |
+| Download/button badge SVGs in `assets/` | Project-authored geometric/text graphics | MIT where applicable |
 
 To regenerate the assets, run `bash scripts/build.sh`, then copy `.build/icon/AppIcon.svg` and `.build/icon/AppIcon.png` into `assets/`. Do not copy an icon from the official app or another project. The build also verifies that the committed SVG matches the generator.
 
@@ -25,7 +27,7 @@ To regenerate the assets, run `bash scripts/build.sh`, then copy `.build/icon/Ap
 
 The app uses Apple system frameworks and the system Swift runtime. It does not bundle the official Codex app, an SDK, a font, a third-party package, or a copied third-party implementation. The CI checkout action is build tooling referenced by commit, not bundled in this application. See [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for the inventory and upstream terms.
 
-The build packages `LICENSE`, this document, `THIRD_PARTY_NOTICES.md`, `README.md`, and `SECURITY.md` alongside the app's own icon and executable. Future dependencies or assets must be reviewed before inclusion; adding a repository-level MIT file does not relicense someone else's material.
+The build packages `LICENSE`, this document, `THIRD_PARTY_NOTICES.md`, `README.md`, and `SECURITY.md` alongside the app's own icon and executable. Supporting `docs/` and project-authored `assets/` are included so the bundled README's local visuals and guides resolve. The live build badge is a URL to GitHub's service; its graphic is not vendored. Future dependencies or assets must be reviewed before inclusion; adding a repository-level MIT file does not relicense someone else's material.
 
 ## Names and trademarks
 

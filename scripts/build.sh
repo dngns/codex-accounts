@@ -19,6 +19,9 @@ done
 /usr/bin/lipo -create .build/accounts-arm64 .build/accounts-x86_64 -output "$app/Contents/MacOS/CodexAccounts"
 cp packaging/Info.plist "$app/Contents/Info.plist"
 cp README.md SECURITY.md LICENSE LICENSING.md THIRD_PARTY_NOTICES.md "$app/Contents/Resources/"
+mkdir -p "$app/Contents/Resources/docs" "$app/Contents/Resources/assets"
+cp docs/*.md "$app/Contents/Resources/docs/"
+cp assets/*.png assets/*.svg "$app/Contents/Resources/assets/"
 # Ad-hoc signature supports local preview; it is NOT a Developer ID signature.
 /usr/bin/codesign --force --sign - "$app"
 /usr/bin/codesign --verify --strict "$app"

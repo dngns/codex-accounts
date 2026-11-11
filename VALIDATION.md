@@ -1,5 +1,12 @@
 # Validation record — 0.1.0 preview
 
+## Documentation and GitHub presentation refresh — 2026-11-11
+
+- Added source-derived offscreen native UI artwork with fixture labels only; no profile store or signed-in account was accessed. Visually reviewed the 1800×1040 showcase and 1800×400 quickstart images.
+- Checked 39 local documentation/image links and parsed all project SVG files. Moved detailed setup/storage/compatibility content into `docs/TECHNICAL.md`, and added a Vietnamese guide.
+- Rebuilt the universal app to verify supporting docs and artwork packaging. This presentation refresh does not replace existing published app archives or change their checksums/tags.
+- GitHub metadata/release-body presentation is separate from application acceptance. Existing pending account-login, Intel-runtime, and notarization checks below still apply.
+
 ## 0.1.1 icon and licensing update — 2026-11-11
 
 - Retained the product name and all existing profile paths. Added an original geometric icon generator, editable SVG, PNG preview, and the bundle's `CFBundleIconFile` entry; no external artwork, font, or symbol library was used.
