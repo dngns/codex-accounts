@@ -10,7 +10,7 @@ This project was developed with AI assistance. We do not claim that AI-assisted 
 
 ## Icon provenance
 
-The icon was designed specifically for this repository in this development session. Its complete construction is in `scripts/generate-icon.swift`: rounded rectangles, circles, a background gradient, and project-selected colors. The same shape coordinates produce the SVG and raster representations. There are no reference images, downloaded graphics, stock images, SF Symbols, third-party icon packs, embedded fonts, or OpenAI/ChatGPT logos in the artwork.
+The icon was designed specifically for this repository in this development session. Its complete construction is in `scripts/generate-icon.swift`: rounded window outlines, a background gradient, and project-selected colors. The same shape coordinates produce the SVG and raster representations. There are no reference images, downloaded graphics, stock images, SF Symbols, third-party icon packs, embedded fonts, or OpenAI/ChatGPT logos in the artwork.
 
 | File | Origin | License / use |
 | --- | --- | --- |

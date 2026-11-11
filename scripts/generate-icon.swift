@@ -22,16 +22,16 @@ func color(_ hex: String) -> NSColor {
 }
 
 // Coordinates are shared by the editable SVG and every PNG representation.
-let tile = Shape(x: 80, y: 80, width: 864, height: 864, radius: 196, hex: "18243B")
+let tile = Shape(x: 80, y: 80, width: 864, height: 864, radius: 196, hex: "16171F")
 let shapes = [
-    Shape(x: 222, y: 222, width: 420, height: 492, radius: 72, hex: "A49AFF"),
-    Shape(x: 369, y: 302, width: 126, height: 126, radius: 63, hex: "343052"),
-    Shape(x: 316, y: 452, width: 232, height: 144, radius: 72, hex: "343052"),
-    // Dark border separates the independent account cards at small Dock sizes.
-    Shape(x: 370, y: 354, width: 436, height: 458, radius: 86, hex: "142136"),
-    Shape(x: 388, y: 372, width: 400, height: 422, radius: 68, hex: "70E2C2"),
-    Shape(x: 532, y: 442, width: 112, height: 112, radius: 56, hex: "16483F"),
-    Shape(x: 480, y: 578, width: 216, height: 132, radius: 66, hex: "16483F")
+    // Two open windows with a clean separation at their overlap.
+    Shape(x: 216, y: 236, width: 416, height: 352, radius: 64, hex: "B5A3FF"),
+    Shape(x: 246, y: 266, width: 356, height: 292, radius: 35, hex: "1E1B30"),
+    Shape(x: 246, y: 330, width: 356, height: 22, radius: 0, hex: "B5A3FF"),
+    Shape(x: 368, y: 390, width: 464, height: 400, radius: 88, hex: "15161F"),
+    Shape(x: 392, y: 414, width: 416, height: 352, radius: 64, hex: "85EAD0"),
+    Shape(x: 422, y: 444, width: 356, height: 292, radius: 35, hex: "142A28"),
+    Shape(x: 422, y: 508, width: 356, height: 22, radius: 0, hex: "85EAD0")
 ]
 
 let destination = URL(fileURLWithPath: CommandLine.arguments.dropFirst().first ?? ".build/icon", isDirectory: true)
@@ -43,8 +43,8 @@ let svg = """
 <!-- Original Codex Accounts project artwork -->
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
 <title id="title">Codex Accounts — independent profile launcher</title>
-<desc id="desc">Two overlapping violet and mint account cards on a dark rounded square.</desc>
-<defs><linearGradient id="background" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#243451"/><stop offset="1" stop-color="#111B2D"/></linearGradient></defs>
+<desc id="desc">Two overlapping open session windows in lavender and mint on a graphite rounded square.</desc>
+<defs><linearGradient id="background" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#292B38"/><stop offset="1" stop-color="#0D0E15"/></linearGradient></defs>
 <rect x="80" y="80" width="864" height="864" rx="196" fill="url(#background)"/>
 \(shapes.map(\.svg).joined(separator: "\n"))
 </svg>
@@ -63,7 +63,7 @@ func png(size: Int) throws -> Data {
     transform.translateX(by: 0, yBy: CGFloat(size))
     transform.scaleX(by: CGFloat(size) / 1024, yBy: -CGFloat(size) / 1024)
     transform.concat()
-    NSGradient(starting: color("243451"), ending: color("111B2D"))!.draw(in: tile.path, angle: 90)
+    NSGradient(starting: color("292B38"), ending: color("0D0E15"))!.draw(in: tile.path, angle: 90)
     for shape in shapes { color(shape.hex).setFill(); shape.path.fill() }
     NSGraphicsContext.restoreGraphicsState()
     return bitmap.representation(using: .png, properties: [:])!

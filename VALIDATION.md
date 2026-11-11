@@ -1,5 +1,12 @@
 # Validation record — 0.1.0 preview
 
+## 0.1.2 icon redesign — 2026-11-11
+
+- Replaced the avatar-card icon with original lavender/mint window outlines on graphite; no external artwork or font inputs were added.
+- Visually reviewed the 1024px artwork and a 64px Dock-sized representation. Verified all ten PNG dimensions, the bundle's ICNS resource and matching artwork in the ZIP.
+- Rebuilt the universal app, checked version `0.1.2` / build `3`, and verified the ad-hoc signature. Updated English/Vietnamese download links and the release presentation for the new version.
+- No profile/authentication logic changed. The pending login, Intel-runtime and notarization acceptance checks below still apply.
+
 ## Documentation and GitHub presentation refresh — 2026-11-11
 
 - Added source-derived offscreen native UI artwork with fixture labels only; no profile store or signed-in account was accessed. Visually reviewed the 1800×1040 showcase and 1800×400 quickstart images.
