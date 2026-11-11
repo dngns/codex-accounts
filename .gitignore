@@ -1,0 +1,9 @@
+.build/
+dist/
+.DS_Store
+*.p12
+*.p8
+*.key
+*.mobileprovision
+auth.json
+.env*
