@@ -1,5 +1,7 @@
 # Codex Accounts
 
+<img src="assets/AppIcon.png" width="144" height="144" alt="Original Codex Accounts icon: two violet and mint account cards">
+
 A tiny, open-source macOS launcher for opening multiple accounts in the official Codex desktop app. **Experimental preview, independent of OpenAI.**
 
 No account manager service. No passwords entered here. No token import. No runtime dependencies. No built-in networking, analytics, or updater.
@@ -73,7 +75,9 @@ The script requires successful notarization, stapling, and Gatekeeper assessment
 - [Apple: Developer ID](https://developer.apple.com/developer-id/)
 - [Apple: notarizing macOS software](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution)
 
-MIT licensed. Codex and OpenAI names identify the app being launched; this project is not affiliated with or endorsed by OpenAI.
+Project code, documentation, and original icon artwork are [MIT licensed](LICENSE) where applicable. Artwork is drawn by the included generator from original geometric shapes; no OpenAI logo, stock image, third-party icon pack, or bundled font is used. See [licensing and artwork provenance](LICENSING.md) and [third-party inventory](THIRD_PARTY_NOTICES.md).
+
+Codex and OpenAI names identify the compatible product and are not licensed by this project. This project is not affiliated with or endorsed by OpenAI. The license review is not a guarantee against copyright, trademark, or patent claims.
 
 ## Tiếng Việt
 

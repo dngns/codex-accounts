@@ -1,0 +1,85 @@
+// SPDX-License-Identifier: MIT
+// Original project artwork, drawn from geometry; no third-party image or font input.
+import AppKit
+
+struct Shape {
+    let x: CGFloat, y: CGFloat, width: CGFloat, height: CGFloat, radius: CGFloat
+    let hex: String
+    var path: NSBezierPath {
+        NSBezierPath(roundedRect: NSRect(x: x, y: y, width: width, height: height),
+                     xRadius: radius, yRadius: radius)
+    }
+    var svg: String {
+        "<rect x=\"\(x)\" y=\"\(y)\" width=\"\(width)\" height=\"\(height)\" rx=\"\(radius)\" fill=\"#\(hex)\"/>"
+    }
+}
+
+func color(_ hex: String) -> NSColor {
+    let rgb = UInt32(hex, radix: 16)!
+    return NSColor(srgbRed: CGFloat((rgb >> 16) & 255) / 255,
+                   green: CGFloat((rgb >> 8) & 255) / 255,
+                   blue: CGFloat(rgb & 255) / 255, alpha: 1)
+}
+
+// Coordinates are shared by the editable SVG and every PNG representation.
+let tile = Shape(x: 80, y: 80, width: 864, height: 864, radius: 196, hex: "18243B")
+let shapes = [
+    Shape(x: 222, y: 222, width: 420, height: 492, radius: 72, hex: "A49AFF"),
+    Shape(x: 369, y: 302, width: 126, height: 126, radius: 63, hex: "343052"),
+    Shape(x: 316, y: 452, width: 232, height: 144, radius: 72, hex: "343052"),
+    // Dark border separates the independent account cards at small Dock sizes.
+    Shape(x: 370, y: 354, width: 436, height: 458, radius: 86, hex: "142136"),
+    Shape(x: 388, y: 372, width: 400, height: 422, radius: 68, hex: "70E2C2"),
+    Shape(x: 532, y: 442, width: 112, height: 112, radius: 56, hex: "16483F"),
+    Shape(x: 480, y: 578, width: 216, height: 132, radius: 66, hex: "16483F")
+]
+
+let destination = URL(fileURLWithPath: CommandLine.arguments.dropFirst().first ?? ".build/icon", isDirectory: true)
+let fm = FileManager.default
+let iconset = destination.appendingPathComponent("AppIcon.iconset", isDirectory: true)
+try fm.createDirectory(at: iconset, withIntermediateDirectories: true)
+let svg = """
+<!-- SPDX-License-Identifier: MIT -->
+<!-- Original Codex Accounts project artwork -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
+<title id="title">Codex Accounts — independent profile launcher</title>
+<desc id="desc">Two overlapping violet and mint account cards on a dark rounded square.</desc>
+<defs><linearGradient id="background" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#243451"/><stop offset="1" stop-color="#111B2D"/></linearGradient></defs>
+<rect x="80" y="80" width="864" height="864" rx="196" fill="url(#background)"/>
+\(shapes.map(\.svg).joined(separator: "\n"))
+</svg>
+
+"""
+try svg.write(to: destination.appendingPathComponent("AppIcon.svg"), atomically: true, encoding: .utf8)
+
+func png(size: Int) throws -> Data {
+    let bitmap = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: size, pixelsHigh: size,
+                                  bitsPerSample: 8, samplesPerPixel: 4, hasAlpha: true,
+                                  isPlanar: false, colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
+    bitmap.size = NSSize(width: size, height: size)
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: bitmap)
+    let transform = NSAffineTransform()
+    transform.translateX(by: 0, yBy: CGFloat(size))
+    transform.scaleX(by: CGFloat(size) / 1024, yBy: -CGFloat(size) / 1024)
+    transform.concat()
+    NSGradient(starting: color("243451"), ending: color("111B2D"))!.draw(in: tile.path, angle: 90)
+    for shape in shapes { color(shape.hex).setFill(); shape.path.fill() }
+    NSGraphicsContext.restoreGraphicsState()
+    return bitmap.representation(using: .png, properties: [:])!
+}
+
+for points in [16, 32, 128, 256, 512] {
+    for scale in [1, 2] {
+        let suffix = scale == 2 ? "@2x" : ""
+        try png(size: points * scale).write(to: iconset.appendingPathComponent("icon_\(points)x\(points)\(suffix).png"))
+    }
+}
+try png(size: 1024).write(to: destination.appendingPathComponent("AppIcon.png"))
+let task = Process()
+task.executableURL = URL(fileURLWithPath: "/usr/bin/iconutil")
+task.arguments = ["-c", "icns", iconset.path, "-o", destination.appendingPathComponent("AppIcon.icns").path]
+try task.run()
+task.waitUntilExit()
+guard task.terminationStatus == 0 else { fatalError("iconutil failed") }
+print("Generated original SVG, PNG, iconset and ICNS in \(destination.path)")

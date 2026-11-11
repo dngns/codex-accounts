@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 import AppKit
 import Security
 
@@ -15,6 +16,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         let menu = NSMenu()
         let appItem = NSMenuItem()
         let appMenu = NSMenu()
+        appMenu.addItem(withTitle: "About Codex Accounts", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: "")
+        let licenseItem = appMenu.addItem(withTitle: "License & notices…", action: #selector(showLicensing), keyEquivalent: "")
+        licenseItem.target = self
+        appMenu.addItem(.separator())
         appMenu.addItem(withTitle: "Quit Codex Accounts", action: #selector(NSApplication.terminate(_:)), keyEquivalent: "q")
         appItem.submenu = appMenu
         menu.addItem(appItem)
@@ -26,7 +31,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         window.minSize = NSSize(width: 540, height: 440)
         let title = NSTextField(labelWithString: "Your accounts, side by side.")
         title.font = .systemFont(ofSize: 26, weight: .semibold)
-        let subtitle = NSTextField(wrappingLabelWithString: "Add a profile, then sign in inside the official Codex app. Use any account that OpenAI and your organization allow.")
+        let subtitle = NSTextField(wrappingLabelWithString: "Independent launcher · not affiliated with OpenAI. Add a profile, then sign in inside the official Codex app.")
         subtitle.textColor = .secondaryLabelColor
         let column = NSTableColumn(identifier: NSUserInterfaceItemIdentifier("profile"))
         column.title = "Profiles — double-click to open"
@@ -162,6 +167,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         alert.informativeText = "This launcher has no networking, telemetry, login form, or updater. It stores only profile labels and creates separate local folders. It never reads or copies tokens.\n\nThe official app stores login credentials locally. Other software running as your macOS user may access them. Profiles are not a security sandbox.\n\nThis experimental launcher is independent of OpenAI. macOS and organization policies still apply."
         alert.addButton(withTitle: "OK")
         alert.runModal()
+    }
+
+    @objc func showLicensing() {
+        let alert = NSAlert()
+        alert.messageText = "License & artwork"
+        alert.informativeText = "Project code, documentation, and original geometric icon are offered under the MIT license where copyright applies. Keep the copyright and license notices when redistributing.\n\nOpenAI names identify the compatible app; they are not licensed by this project. This launcher is independent and is not endorsed by OpenAI. No OpenAI logo, stock image, bundled font, or third-party icon pack is included."
+        alert.addButton(withTitle: "OK")
+        alert.addButton(withTitle: "Read bundled notices")
+        if alert.runModal() == .alertSecondButtonReturn,
+           let url = Bundle.main.url(forResource: "LICENSING", withExtension: "md") {
+            NSWorkspace.shared.open(url)
+        }
     }
 }
 
