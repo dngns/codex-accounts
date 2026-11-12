@@ -172,7 +172,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
     @objc func showLicensing() {
         let alert = NSAlert()
         alert.messageText = "License & artwork"
-        alert.informativeText = "Project code, documentation, and original geometric icon are offered under the MIT license where copyright applies. Keep the copyright and license notices when redistributing.\n\nOpenAI names identify the compatible app; they are not licensed by this project. This launcher is independent and is not endorsed by OpenAI. No OpenAI logo, stock image, bundled font, or third-party icon pack is included."
+        alert.informativeText = "Project code, documentation, and icon artwork are offered under the MIT license where copyright applies. Keep the copyright and license notices when redistributing. See the bundled licensing document for the AI-assisted artwork's provenance.\n\nOpenAI names identify the compatible app; they are not licensed by this project. This launcher is independent and is not endorsed by OpenAI. No OpenAI logo, stock image, bundled font, or third-party icon pack is included."
         alert.addButton(withTitle: "OK")
         alert.addButton(withTitle: "Read bundled notices")
         if alert.runModal() == .alertSecondButtonReturn,

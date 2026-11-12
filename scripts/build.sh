@@ -9,7 +9,7 @@ app="$PWD/dist/Codex Accounts.app"
 mkdir -p "$app/Contents/MacOS" "$app/Contents/Resources"
 /usr/bin/xcrun swiftc scripts/generate-icon.swift -o .build/generate-icon
 .build/generate-icon .build/icon
-cmp .build/icon/AppIcon.svg assets/AppIcon.svg
+cp .build/icon/AppIcon.png assets/AppIcon.png
 cp .build/icon/AppIcon.icns "$app/Contents/Resources/"
 for arch in arm64 x86_64; do
   /usr/bin/xcrun swiftc -O -target "$arch-apple-macosx13.0" \

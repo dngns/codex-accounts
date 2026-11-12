@@ -1,5 +1,11 @@
 # Validation record — 0.1.0 preview
 
+## 0.1.3 approved double-C artwork — 2026-11-12
+
+- Adopted the exact imagegen image approved in chat. Source PNG is preserved and pinned by SHA-256; the packager fits it to the macOS canvas and clips only stray outer pixels.
+- Packaging produces ten iconset PNG representations and an ICNS resource. The current artwork is raster, not an editable vector or layered Icon Composer asset; provenance and the exact prompt are documented in `docs/ICON.md`.
+- Updated version to `0.1.3` / build `4`, download links and licensing text. Authentication/profile logic is unchanged; the pending acceptance checks recorded below still apply.
+
 ## 0.1.2 icon redesign — 2026-11-11
 
 - Replaced the avatar-card icon with original lavender/mint window outlines on graphite; no external artwork or font inputs were added.

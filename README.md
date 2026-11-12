@@ -9,14 +9,14 @@
   <img src="assets/badge-macos.svg" alt="macOS 13 or later · universal binary">
 </p>
 <p align="center">
-  <a href="https://github.com/dngns/codex-accounts/releases/tag/v0.1.2-preview.1"><img src="assets/download.svg" width="256" alt="Download macOS preview"></a>
+  <a href="https://github.com/dngns/codex-accounts/releases/tag/v0.1.3-preview.1"><img src="assets/download.svg" width="256" alt="Download macOS preview"></a>
 </p>
 <p align="center">
   <a href="#get-started">Get started</a> · <a href="#your-login-stays-with-the-official-app">Privacy</a> · <a href="docs/TECHNICAL.md">Technical docs</a> · <a href="docs/README.vi.md">Tiếng Việt</a>
 </p>
 
 > [!IMPORTANT]
-> **Experimental preview · independent of OpenAI.** The download is not notarized and macOS may block it. [Read the release notes](https://github.com/dngns/codex-accounts/releases/tag/v0.1.2-preview.1) before downloading. Do not disable Gatekeeper to run it.
+> **Experimental preview · independent of OpenAI.** The download is not notarized and macOS may block it. [Read the release notes](https://github.com/dngns/codex-accounts/releases/tag/v0.1.3-preview.1) before downloading. Do not disable Gatekeeper to run it.
 
 ![Codex Accounts native UI render with three example labels: Personal, Work and Client](assets/showcase.png)
 <p align="center"><sub>Rendered from the app's native interface with example labels. No real accounts are connected or shown.</sub></p>
@@ -43,8 +43,8 @@ You can move **Codex Accounts.app** into Applications. This launcher does not im
 
 | Package | Platform | Download |
 | :--- | :--- | :--- |
-| **0.1.2 Preview · Universal ZIP** | macOS 13+ · Apple Silicon and Intel build targets | [Download app](https://github.com/dngns/codex-accounts/releases/download/v0.1.2-preview.1/Codex-Accounts-preview-universal.zip) |
-| **SHA-256 checksums** | Verify archive integrity | [Download SHA256SUMS](https://github.com/dngns/codex-accounts/releases/download/v0.1.2-preview.1/SHA256SUMS) |
+| **0.1.3 Preview · Universal ZIP** | macOS 13+ · Apple Silicon and Intel build targets | [Download app](https://github.com/dngns/codex-accounts/releases/download/v0.1.3-preview.1/Codex-Accounts-preview-universal.zip) |
+| **SHA-256 checksums** | Verify archive integrity | [Download SHA256SUMS](https://github.com/dngns/codex-accounts/releases/download/v0.1.3-preview.1/SHA256SUMS) |
 
 **Before you install:** the official Codex app is required. This preview is ad-hoc signed, not Developer ID signed or notarized. Intel runtime, full multi-account login, and clean-Mac download acceptance are still pending. [Validation record →](VALIDATION.md)
 
@@ -110,7 +110,7 @@ bash scripts/build.sh
 
 ## License & independence
 
-Project code, docs, and original artwork are **[MIT licensed](LICENSE)** where applicable. The icon and showcase are created within this project; no stock image, OpenAI logo, third-party icon pack, or bundled font is used.
+Project code, docs, and original artwork are **[MIT licensed](LICENSE)** where applicable. The approved icon is AI-generated from a project brief; the showcase is rendered from the native UI. See the [icon prompt and source](docs/ICON.md); no stock image, OpenAI logo, third-party icon pack, or bundled font is used.
 
 [Artwork provenance and licensing](LICENSING.md) · [Third-party inventory](THIRD_PARTY_NOTICES.md)
 

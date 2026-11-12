@@ -75,7 +75,7 @@ The script requires successful notarization, stapling, and Gatekeeper assessment
 - [Apple: Developer ID](https://developer.apple.com/developer-id/)
 - [Apple: notarizing macOS software](https://developer.apple.com/documentation/security/notarizing-macos-software-before-distribution)
 
-Project code, documentation, and original icon artwork are [MIT licensed](../LICENSE) where applicable. Artwork is drawn by the included generator from original geometric shapes; no OpenAI logo, stock image, third-party icon pack, or bundled font is used. See [licensing and artwork provenance](../LICENSING.md) and [third-party inventory](../THIRD_PARTY_NOTICES.md).
+Project code, documentation, and original icon artwork are [MIT licensed](../LICENSE) where applicable. The approved double-C icon was generated with imagegen from a text-only brief and is packaged from its committed source PNG; no OpenAI logo, stock image, third-party icon pack, or bundled font is used. See [licensing and artwork provenance](../LICENSING.md) and [third-party inventory](../THIRD_PARTY_NOTICES.md).
 
 Codex and OpenAI names identify the compatible product and are not licensed by this project. This project is not affiliated with or endorsed by OpenAI. The license review is not a guarantee against copyright, trademark, or patent claims.
 

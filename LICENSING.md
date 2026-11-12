@@ -1,6 +1,6 @@
 # Licensing, artwork provenance, and trademarks
 
-Reviewed: 2026-11-11. Scope: the files tracked by this repository and the app archive built by `scripts/build.sh`. This is a source and packaging review, not a legal opinion, independent audit, or worldwide trademark clearance.
+Reviewed: 2026-11-12. Scope: the files tracked by this repository and the app archive built by `scripts/build.sh`. This is a source and packaging review, not a legal opinion, independent audit, or worldwide trademark clearance.
 
 ## Project license
 
@@ -10,18 +10,20 @@ This project was developed with AI assistance. We do not claim that AI-assisted 
 
 ## Icon provenance
 
-The icon was designed specifically for this repository in this development session. Its complete construction is in `scripts/generate-icon.swift`: rounded window outlines, a background gradient, and project-selected colors. The same shape coordinates produce the SVG and raster representations. There are no reference images, downloaded graphics, stock images, SF Symbols, third-party icon packs, embedded fonts, or OpenAI/ChatGPT logos in the artwork.
+The current icon is the **double-C raster concept approved by the maintainer on 2026-11-12**. It was created using the built-in OpenAI imagegen tool from a text-only project brief; no reference image, stock image, icon pack, font file, or official logo was supplied as input. This is AI-generated artwork, not a hand-drawn vector. It has not received independent similarity or trademark clearance.
 
 | File | Origin | License / use |
 | --- | --- | --- |
-| `scripts/generate-icon.swift` | Project-specific drawing code, AI-assisted | MIT |
-| `assets/AppIcon.svg` | Generated editable geometry from that script | MIT where applicable |
-| `assets/AppIcon.png` | Generated 1024px preview from that script | MIT where applicable |
-| `AppIcon.icns` in the app | Generated PNG representations packaged by Apple's `iconutil` | Same project-artwork license; no Apple artwork included |
+| `assets/AppIcon-source.png` | Exact approved imagegen output, 1254×1254 RGBA | Project MIT grant where rights exist and can be granted |
+| `assets/AppIcon.png` | Approved image scaled and centered for the app-icon canvas | Same artwork grant |
+| `scripts/generate-icon.swift` | Project-authored packaging code; verifies the source hash and creates PNG sizes / ICNS | MIT |
+| `AppIcon.icns` in the app | Approved raster artwork packaged by Apple's `iconutil` | Same artwork grant; no Apple artwork copied |
 | `assets/showcase.png`, `assets/quickstart.png` | Source-derived offscreen native UI render with fixture labels and project-authored composition | MIT where applicable; see `docs/SHOWCASE.md` |
 | Download/button badge SVGs in `assets/` | Project-authored geometric/text graphics | MIT where applicable |
 
-To regenerate the assets, run `bash scripts/build.sh`, then copy `.build/icon/AppIcon.svg` and `.build/icon/AppIcon.png` into `assets/`. Do not copy an icon from the official app or another project. The build also verifies that the committed SVG matches the generator.
+See [the approved icon's prompt and source hash](docs/ICON.md). `assets/AppIcon-source.png` is preserved byte-for-byte. The packager scales and centers it with a consistent margin and clips stray outer pixels to the rounded tile; it does not redraw or recolor the monogram. The current icon has no editable vector master. The earlier geometric SVG is retained in historical Git tags, not passed off as the source of the approved raster artwork.
+
+To package the approved artwork, run `bash scripts/build.sh`. The source image is pinned by SHA-256 so the build will fail if it is replaced without a deliberate review. No image-generation API or network call is made during the build. The source PNG is sufficient to reproduce the packaged size variants; model regeneration is not expected to reproduce the same image.
 
 ## Dependencies and redistribution
 
@@ -31,14 +33,14 @@ The build packages `LICENSE`, this document, `THIRD_PARTY_NOTICES.md`, `README.m
 
 ## Names and trademarks
 
-The name **Codex Accounts** is retained at the maintainer's request. **Codex**, **OpenAI**, and **ChatGPT** identify the third-party product with which this launcher is intended to work; they are not this project's trademarks to license. The independent-project notice appears in the README, app interface, About metadata, and license dialog. The icon uses this project's own geometry rather than OpenAI's marks or visual assets. The launcher does not claim to be an official OpenAI product or imply endorsement.
+The name **Codex Accounts** is retained at the maintainer's request. **Codex**, **OpenAI**, and **ChatGPT** identify the third-party product with which this launcher is intended to work; they are not this project's trademarks to license. The independent-project notice appears in the README, app interface, About metadata, and license dialog. The brief requested an independent double-C monogram and excluded OpenAI/ChatGPT logos; no official brand asset was supplied. The launcher does not claim to be an official OpenAI product or imply endorsement.
 
 MIT is a copyright license, not permission to use OpenAI's or Apple's trademarks. OpenAI's published brand guidelines prohibit confusing sponsorship/endorsement and incorporating its logo into one's own branding. This review does not establish that the retained product name is approved or that all trademark questions are resolved. If the name receives an objection or creates confusion, adopt a distinct product name and update the distribution metadata. Do not describe this project as “official,” “approved,” or “guaranteed free of infringement.”
 
 ## Review findings and limits
 
 - Reviewed the tracked Swift code, shell scripts, workflow, metadata, documents, and new artwork generator for external imports, assets, and license declarations.
-- No vendored third-party source, external artwork, font files, or package dependency manifests were found in the reviewed tree.
+- No vendored third-party source, stock artwork, font files, or package dependency manifests were found in the reviewed tree. The imagegen-origin icon is explicitly documented above.
 - Updated the MIT copyright holder, added SPDX identifiers to source/build files, and made icon licensing and attribution explicit.
 - The published app can be checked for the icon and required notices without collecting any account data.
 - No patent search, global trademark search, independent similarity analysis, or review of every compiler-emitted instruction was performed. This is not an absolute non-infringement guarantee.
