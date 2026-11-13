@@ -36,6 +36,25 @@ func canvas(_ width: Int, _ height: Int, _ draw: () -> Void) -> Data {
     return bitmap.representation(using: .png, properties: [:])!
 }
 
+func opaquePNG(_ original: NSBitmapImageRep, appearance: NSAppearance) -> Data {
+    let result = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: original.pixelsWide,
+                                  pixelsHigh: original.pixelsHigh, bitsPerSample: 8,
+                                  samplesPerPixel: 4, hasAlpha: true, isPlanar: false,
+                                  colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
+    let image = NSImage(size: NSSize(width: original.pixelsWide, height: original.pixelsHigh))
+    image.addRepresentation(original)
+    NSGraphicsContext.saveGraphicsState()
+    NSGraphicsContext.current = NSGraphicsContext(bitmapImageRep: result)
+    appearance.performAsCurrentDrawingAppearance {
+        let frame = NSRect(x: 0, y: 0, width: original.pixelsWide, height: original.pixelsHigh)
+        NSColor.windowBackgroundColor.setFill()
+        NSBezierPath(rect: frame).fill()
+        image.draw(in: frame, from: .zero, operation: .sourceOver, fraction: 1)
+    }
+    NSGraphicsContext.restoreGraphicsState()
+    return result.representation(using: .png, properties: [:])!
+}
+
 MainActor.assumeIsolated {
     let application = NSApplication.shared
     application.appearance = NSAppearance(named: .aqua)
@@ -44,6 +63,53 @@ MainActor.assumeIsolated {
     delegate.window.appearance = NSAppearance(named: .aqua)
     let view = delegate.window.contentView!
     view.layoutSubtreeIfNeeded()
+    func buttons(_ view: NSView) -> [NSButton] {
+        (view as? NSButton).map { [$0] } ?? view.subviews.flatMap { buttons($0) }
+    }
+    func rowButton(_ row: Int) -> NSButton {
+        let cell = delegate.table.view(atColumn: 0, row: row, makeIfNecessary: true)!
+        return buttons(cell).first { $0.identifier != nil }!
+    }
+    let savedProfiles = delegate.profiles
+    var checks = 0
+    for row in savedProfiles.indices {
+        delegate.previewOpenedProfileID = nil
+        rowButton(row).performClick(nil)
+        precondition(delegate.previewOpenedProfileID == savedProfiles[row].id, "Open must route to that row's UUID.")
+        checks += 1
+    }
+    let oldButton = rowButton(0)
+    delegate.profiles.reverse()
+    delegate.reloadProfiles()
+    oldButton.performClick(nil)
+    precondition(delegate.previewOpenedProfileID == savedProfiles[0].id, "Reordering must not change a button's target.")
+    checks += 1
+    delegate.profiles.removeAll { $0.id == savedProfiles[0].id }
+    delegate.reloadProfiles()
+    delegate.previewOpenedProfileID = nil
+    oldButton.performClick(nil)
+    precondition(delegate.previewOpenedProfileID == nil, "A stale button must not open a different profile.")
+    checks += 1
+    delegate.busy = true
+    precondition(!delegate.addButton.isEnabled && !rowButton(0).isEnabled, "Disable launch/add while busy.")
+    checks += 1
+    delegate.busy = false
+    delegate.profiles = []
+    delegate.reloadProfiles()
+    precondition(!delegate.emptyState.isHidden && delegate.table.numberOfRows == 0, "Empty state must be visible.")
+    checks += 1
+    delegate.profiles = [Profile(id: UUID(), name: String(repeating: "Long profile ", count: 6))]
+    delegate.reloadProfiles()
+    delegate.window.setContentSize(NSSize(width: 580, height: 440))
+    view.layoutSubtreeIfNeeded()
+    let longButton = rowButton(0)
+    let buttonRect = longButton.convert(longButton.bounds, to: view)
+    precondition(buttonRect.maxX <= view.bounds.maxX - 20 && buttonRect.width >= 70, "Long names must leave the Open button visible.")
+    checks += 1
+    delegate.profiles = savedProfiles
+    delegate.window.setContentSize(NSSize(width: 640, height: 520))
+    delegate.reloadProfiles()
+    view.layoutSubtreeIfNeeded()
     let bounds = view.bounds
     let bitmap = NSBitmapImageRep(bitmapDataPlanes: nil, pixelsWide: Int(bounds.width * 2),
                                   pixelsHigh: Int(bounds.height * 2), bitsPerSample: 8,
@@ -51,6 +117,7 @@ MainActor.assumeIsolated {
                                   colorSpaceName: .deviceRGB, bytesPerRow: 0, bitsPerPixel: 0)!
     bitmap.size = bounds.size
     view.cacheDisplay(in: bounds, to: bitmap)
+    try! opaquePNG(bitmap, appearance: NSAppearance(named: .aqua)!).write(to: URL(fileURLWithPath: "assets/profile-ui-light.png"))
     let nativeUI = NSImage(size: bounds.size)
     nativeUI.addRepresentation(bitmap)
     let hero = canvas(1800, 1040) {
@@ -70,7 +137,7 @@ MainActor.assumeIsolated {
         for (i, color) in [UInt32(0xFF6058), UInt32(0xFFBD2E), UInt32(0x28CA42)].enumerated() {
             box(774 + CGFloat(i) * 27, 220, 16, 16, 8, color)
         }
-        text("Codex Accounts · Preview", 1000, 216, 500, 19, 0x4B4B50, .medium)
+        text("Codex Accounts", 1000, 216, 500, 19, 0x4B4B50, .medium)
         nativeUI.draw(in: NSRect(x: 748, y: 254, width: 950, height: 724),
                       from: .zero, operation: .sourceOver, fraction: 1,
                       respectFlipped: true, hints: [.interpolation: NSImageInterpolation.high])
@@ -83,7 +150,7 @@ MainActor.assumeIsolated {
         box(0, 0, 1800, 400, 24, 0x151F30)
         let steps = [
             ("01", "Name a profile", "Personal, Work, or Client.\nJust a label — no email required."),
-            ("02", "Open the profile", "Choose your label and click\nOpen selected in the launcher."),
+            ("02", "Open the profile", "Click Open beside the profile\nyou want to use."),
             ("03", "Sign in with OpenAI", "Use the official app's login.\nVerify your email and workspace.")
         ]
         for (index, step) in steps.enumerated() {
@@ -96,5 +163,12 @@ MainActor.assumeIsolated {
         text("Repeat for another account. Sign in to new profiles one at a time.", 65, 342, 1600, 22, 0x9DAFC5)
     }
     try! workflow.write(to: URL(fileURLWithPath: "assets/quickstart.png"))
+    application.appearance = NSAppearance(named: .darkAqua)
+    delegate.window.appearance = NSAppearance(named: .darkAqua)
+    delegate.reloadProfiles()
+    view.layoutSubtreeIfNeeded()
+    view.cacheDisplay(in: bounds, to: bitmap)
+    try! opaquePNG(bitmap, appearance: NSAppearance(named: .darkAqua)!).write(to: URL(fileURLWithPath: "assets/profile-ui-dark.png"))
+    print("Passed \(checks) UI routing, busy-state, empty-state and long-name checks (mock launch; no credentials).")
     print("Rendered showcase.png and quickstart.png offscreen with demo labels only.")
 }

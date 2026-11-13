@@ -4,6 +4,8 @@
 
 `assets/showcase.png` is an **offscreen native UI render**, not a screenshot of real signed-in accounts. The Personal, Work, and Client names are fixture labels. No account is connected and no profile store is opened during rendering.
 
+The 0.1.4 UI uses a separate Open button on each profile row. `assets/profile-ui-light.png` and `assets/profile-ui-dark.png` show the same fixture interface in both native appearances. The renderer replaces the final app-launch boundary with a recorder and runs eight checks against the actual UI handlers: per-row UUID routing, reordered profiles, stale buttons, busy controls, empty state, and a long profile label. It never launches the official app.
+
 `scripts/render-showcase.swift` derives a temporary renderer from `Sources/main.swift`, removes the app event-loop entry, replaces profile-store initialization with fixture labels, and removes window presentation/activation. It then appends `scripts/showcase-scene.swift` and compiles against the same UI code. Rendering fails if the expected source entry/setup no longer matches, so a changed interface requires review.
 
 The composition adds project-written copy and simple geometry around that native view. `assets/quickstart.png` is a companion three-step explainer. Both are original, AI-assisted documentation artwork under the project's MIT terms where applicable. macOS system font APIs render the text; no font file, stock photograph, third-party logo or icon library is shipped. Badge and download-button SVGs are also project-authored geometry/text. GitHub's live build badge is referenced from GitHub, not vendored.

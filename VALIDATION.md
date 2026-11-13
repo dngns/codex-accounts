@@ -1,5 +1,12 @@
 # Validation record — 0.1.0 preview
 
+## 0.1.4 direct profile actions — 2026-11-13
+
+- Replaced radio-like list markers and the shared Open selected action with named profile rows and per-row Open buttons. Button targets resolve UUIDs; selection state is not used to launch profiles.
+- Eight offscreen fixture checks passed: each row routes to its own UUID, reordering preserves a button's target, a stale button cannot open a different profile, busy controls disable, empty state displays, and a long name leaves Open visible at minimum width. The app-launch boundary was mocked and no real account was accessed.
+- Updated the Add profile form to a window-attached sheet, and regenerated native light/dark preview images, the showcase and quickstart instructions. The approved double-C icon and authentication/storage model are retained.
+- Native interaction check in a separate fixture app: Open on Work reached the mocked Work launch boundary; the attached Add profile sheet created a Studio fixture row and updated the count to four. Only temporary fixture state under `.build/ui-preview/` was used.
+
 ## 0.1.3 approved double-C artwork — 2026-11-12
 
 - Adopted the exact imagegen image approved in chat. Source PNG is preserved and pinned by SHA-256; the packager fits it to the macOS canvas and clips only stray outer pixels.

@@ -13,12 +13,23 @@ let storeLine = "do { store = try ProfileStore(); try refresh() } catch { show(e
 guard source.contains(storeLine) else { fatalError("Profile setup changed; review the renderer.") }
 source = source.replacingOccurrences(of: storeLine, with: """
 profiles = ["Personal", "Work", "Client"].map { Profile(id: UUID(), name: $0) }
-table.reloadData()
-table.selectRowIndexes(IndexSet(integer: 1), byExtendingSelection: false)
-status.stringValue = "Labels are yours to choose. Verify the signed-in account in each Codex window."
+reloadProfiles()
 """)
 source = source.replacingOccurrences(of: "window.makeKeyAndOrderFront(nil)", with: "// Offscreen only: no visible window.")
 source = source.replacingOccurrences(of: "NSApp.activate(ignoringOtherApps: true)", with: "// Do not activate another application.")
+// Mock only the final launch boundary; exercise the actual UUID-based button routing.
+guard let launchStart = source.range(of: "    func openProfile(_ profile: Profile) {"),
+      let launchEnd = source.range(of: "    @objc func showPrivacy()", range: launchStart.upperBound..<source.endIndex) else {
+    fatalError("Launch boundary changed; review the renderer.")
+}
+source.replaceSubrange(launchStart.lowerBound..<launchEnd.lowerBound, with: """
+    var previewOpenedProfileID: UUID?
+    func openProfile(_ profile: Profile) {
+        guard !busy else { return }
+        previewOpenedProfileID = profile.id
+    }
+
+""")
 source += try String(contentsOfFile: "scripts/showcase-scene.swift", encoding: .utf8)
 try source.write(to: output.appendingPathComponent("main.swift"), atomically: true, encoding: .utf8)
 

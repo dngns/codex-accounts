@@ -10,7 +10,7 @@ No account manager service. No passwords entered here. No token import. No runti
 
 1. Install the official Codex desktop app from OpenAI first.
 2. Download `Codex-Accounts-preview-universal.zip` from this repository's Releases, unzip, and open **Codex Accounts.app**. You can move it into Applications.
-3. Choose **Add profile**, enter a label, select it, and choose **Open selected**.
+3. Choose **Add profile**, enter a label, and click **Open** beside that profile.
 4. Sign in using the official app's normal sign-in flow. Repeat for another account.
 
 Profiles accept any label and impose no email/domain filter. Actual account eligibility, SSO, workspace restrictions, and organization policies are controlled by OpenAI and your organization. When the browser offers a previously used account, choose the intended account there and verify the email/workspace inside Codex. Labels do not verify identity.
