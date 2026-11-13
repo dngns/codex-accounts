@@ -1,5 +1,11 @@
 # Validation record — 0.1.0 preview
 
+## 0.1.5 native row-border fix — 2026-11-14
+
+- Confirmed the broken top edge in the live Dark Mode fixture window. Disabling NSBox's title region alone did not resolve it, so profile rows now use a small NSView that fills and strokes one closed rounded path using semantic system colors.
+- Verified the complete top/side/bottom borders in the live native window after rebuilding; closed both old and new fixture windows after testing.
+- Regenerated light/dark screenshots and passed the existing eight UI fixture checks. The profile UUID routing and storage/authentication logic are unchanged.
+
 ## 0.1.4 direct profile actions — 2026-11-13
 
 - Replaced radio-like list markers and the shared Open selected action with named profile rows and per-row Open buttons. Button targets resolve UUIDs; selection state is not used to launch profiles.

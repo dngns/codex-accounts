@@ -1,6 +1,6 @@
 # Codex Accounts
 
-[English](../README.md) · [Tải bản preview](https://github.com/dngns/codex-accounts/releases/tag/v0.1.4-preview.1)
+[English](../README.md) · [Tải bản preview](https://github.com/dngns/codex-accounts/releases/tag/v0.1.5-preview.1)
 
 **Mỗi tài khoản một profile riêng.** Launcher nhỏ cho macOS, dùng cùng ứng dụng Codex chính thức.
 
@@ -15,14 +15,14 @@
 
 ![Đặt tên profile, mở profile và đăng nhập trong app chính thức](../assets/quickstart.png)
 
-1. Cài app Codex chính thức từ OpenAI. Tải và giải nén launcher từ [Releases](https://github.com/dngns/codex-accounts/releases/tag/v0.1.4-preview.1).
+1. Cài app Codex chính thức từ OpenAI. Tải và giải nén launcher từ [Releases](https://github.com/dngns/codex-accounts/releases/tag/v0.1.5-preview.1).
 2. Mở **Codex Accounts.app** → **Add profile**, đặt tên như Personal hoặc Work → nhấn **Open** cạnh profile đó.
 3. Đăng nhập trong app chính thức, kiểm tra email/workspace. Lặp lại cho tài khoản khác; đăng nhập lần lượt từng profile mới.
 
 | Tải về | Dành cho |
 | --- | --- |
-| [App dạng Universal ZIP](https://github.com/dngns/codex-accounts/releases/download/v0.1.4-preview.1/Codex-Accounts-preview-universal.zip) | macOS 13+; có binary Apple Silicon và Intel |
-| [SHA256SUMS](https://github.com/dngns/codex-accounts/releases/download/v0.1.4-preview.1/SHA256SUMS) | Kiểm tra tính toàn vẹn file tải xuống |
+| [App dạng Universal ZIP](https://github.com/dngns/codex-accounts/releases/download/v0.1.5-preview.1/Codex-Accounts-preview-universal.zip) | macOS 13+; có binary Apple Silicon và Intel |
+| [SHA256SUMS](https://github.com/dngns/codex-accounts/releases/download/v0.1.5-preview.1/SHA256SUMS) | Kiểm tra tính toàn vẹn file tải xuống |
 
 Intel runtime, toàn bộ luồng đăng nhập nhiều tài khoản và tải/mở trên máy Mac sạch vẫn cần kiểm thử thêm. Xem [ghi nhận kiểm thử](../VALIDATION.md).
 

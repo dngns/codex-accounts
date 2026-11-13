@@ -2,6 +2,24 @@
 import AppKit
 import Security
 
+/// Draw the entire row frame explicitly; NSBox's native border can leave gaps on macOS.
+final class ProfileCardView: NSView {
+    override func draw(_ dirtyRect: NSRect) {
+        super.draw(dirtyRect)
+        let path = NSBezierPath(roundedRect: bounds.insetBy(dx: 0.5, dy: 0.5), xRadius: 12, yRadius: 12)
+        NSColor.controlBackgroundColor.setFill()
+        path.fill()
+        NSColor.separatorColor.withAlphaComponent(0.55).setStroke()
+        path.lineWidth = 0.5
+        path.stroke()
+    }
+
+    override func viewDidChangeEffectiveAppearance() {
+        super.viewDidChangeEffectiveAppearance()
+        needsDisplay = true
+    }
+}
+
 @MainActor
 final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate {
     var window: NSWindow!
@@ -141,18 +159,14 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let profile = profiles[row]
         let cell = NSTableCellView()
-        let card = NSBox()
-        card.boxType = .custom
-        card.borderWidth = 0.5
-        card.borderColor = .separatorColor.withAlphaComponent(0.4)
-        card.fillColor = .controlBackgroundColor
-        card.cornerRadius = 12
-        card.contentViewMargins = .zero
+        let card = ProfileCardView()
         card.translatesAutoresizingMaskIntoConstraints = false
         cell.addSubview(card)
-        let content = card.contentView!
+        let content = card
         let badge = NSBox()
         badge.boxType = .custom
+        badge.title = ""
+        badge.titlePosition = .noTitle
         badge.borderWidth = 0
         badge.fillColor = .quaternaryLabelColor
         badge.cornerRadius = 9
