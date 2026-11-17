@@ -18,9 +18,6 @@
 > [!IMPORTANT]
 > **Experimental preview · independent of OpenAI.** The download is not notarized and macOS may block it. [Read the release notes](https://github.com/dngns/codex-accounts/releases/tag/v0.1.7-preview.1) before downloading. Do not disable Gatekeeper to run it.
 
-![Codex Accounts on macOS 26 with Liquid Glass controls and three example profiles](assets/profile-ui-liquid-glass.png)
-<p align="center"><sub>Version 0.1.7 on macOS 26.2 in Light Mode, with example profiles.</sub></p>
-
 ### Personal. Work. Client. One small launcher.
 
 Keep a separate place for each account without repeatedly swapping the default profile. Add a label, open the profile, and sign in inside the official app.
@@ -112,7 +109,7 @@ bash scripts/build.sh
 
 ## License & independence
 
-Project code, docs, and original artwork are **[MIT licensed](LICENSE)** where applicable. The approved icon is AI-generated from a project brief; the showcase is a capture of the native app. See the [icon prompt and source](docs/ICON.md); no stock image, OpenAI logo, third-party icon pack, or bundled font is used.
+Project code, docs, and original artwork are **[MIT licensed](LICENSE)** where applicable. The approved icon is AI-generated from a project brief. See the [icon prompt and source](docs/ICON.md); no stock image, OpenAI logo, third-party icon pack, or bundled font is used.
 
 [Artwork provenance and licensing](LICENSING.md) · [Third-party inventory](THIRD_PARTY_NOTICES.md)
 

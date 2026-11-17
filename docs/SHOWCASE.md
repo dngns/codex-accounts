@@ -2,8 +2,6 @@
 
 [Back to README](../README.md)
 
-The README uses [a live capture of the 0.1.7 fixture window](../assets/profile-ui-liquid-glass.png) on macOS 26.2 in Light Mode. It shows sample profile labels. Capture the live window when refreshing this image so the system composites the Liquid Glass material.
-
 `assets/showcase.png` is an **offscreen native UI render**, not a screenshot of real signed-in accounts. The Personal, Work, and Client names are fixture labels. No account is connected and no profile store is opened during rendering.
 
 The 0.1.4 UI uses a separate Open button on each profile row. `assets/profile-ui-light.png` and `assets/profile-ui-dark.png` show the same fixture interface in both native appearances. The renderer replaces the final app-launch boundary with a recorder and runs eight checks against the actual UI handlers: per-row UUID routing, reordered profiles, stale buttons, busy controls, empty state, and a long profile label. It never launches the official app.

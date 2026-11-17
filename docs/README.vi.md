@@ -4,10 +4,6 @@
 
 **Mỗi tài khoản một profile riêng.** Launcher nhỏ cho macOS, dùng cùng ứng dụng Codex chính thức.
 
-![Codex Accounts trên macOS 26 với các nút Liquid Glass và ba profile mẫu](../assets/profile-ui-liquid-glass.png)
-
-*Bản 0.1.7 trên macOS 26.2 ở chế độ sáng, với các profile mẫu.*
-
 > [!IMPORTANT]
 > Đây là bản thử nghiệm độc lập, không được OpenAI bảo trợ. App chưa được ký Developer ID hoặc notarize, nên macOS có thể chặn bản tải xuống. Không tắt Gatekeeper hoặc xóa quarantine để chạy bản thử.
 
