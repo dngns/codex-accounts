@@ -106,6 +106,8 @@ MainActor.assumeIsolated {
     let buttonRect = longButton.convert(longButton.bounds, to: view)
     precondition(buttonRect.maxX <= view.bounds.maxX - 20 && buttonRect.width >= 70, "Long names must leave the Open button visible.")
     checks += 1
+    print("Passed \(checks) UI routing, busy-state, empty-state and long-name checks (mock launch; no credentials).")
+    guard !CommandLine.arguments.contains("--checks-only") else { return }
     delegate.profiles = savedProfiles
     delegate.window.setContentSize(NSSize(width: 640, height: 520))
     delegate.reloadProfiles()
@@ -169,6 +171,5 @@ MainActor.assumeIsolated {
     view.layoutSubtreeIfNeeded()
     view.cacheDisplay(in: bounds, to: bitmap)
     try! opaquePNG(bitmap, appearance: NSAppearance(named: .darkAqua)!).write(to: URL(fileURLWithPath: "assets/profile-ui-dark.png"))
-    print("Passed \(checks) UI routing, busy-state, empty-state and long-name checks (mock launch; no credentials).")
     print("Rendered showcase.png and quickstart.png offscreen with demo labels only.")
 }

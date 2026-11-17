@@ -49,7 +49,7 @@ Open source and signatures help inspection and integrity; neither is a guarantee
 
 ## Build and test
 
-Requires macOS and Xcode Command Line Tools. End users of a packaged build do not need Swift, Python, Node, Homebrew, or Terminal.
+Building requires the macOS 26 SDK (Xcode 26 or its Command Line Tools). End users of a packaged build do not need Swift, Python, Node, Homebrew, or Terminal.
 
 ```sh
 bash scripts/test.sh

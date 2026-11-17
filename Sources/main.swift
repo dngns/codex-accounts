@@ -67,6 +67,11 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         addButton.imagePosition = .imageLeading
         addButton.bezelStyle = .rounded
         addButton.controlSize = .large
+        if #available(macOS 26.0, *) {
+            addButton.bezelStyle = .glass
+            addButton.bezelColor = .controlAccentColor
+            addButton.tintProminence = .primary
+        }
         addButton.target = self
         addButton.action = #selector(addProfile)
         addButton.setAccessibilityLabel("Add a new profile")
@@ -122,6 +127,10 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         privacy.bezelStyle = .inline
         privacy.isBordered = false
         privacy.font = .systemFont(ofSize: 12)
+        if #available(macOS 26.0, *) {
+            privacy.isBordered = true
+            privacy.bezelStyle = .glass
+        }
         let independent = NSTextField(labelWithString: "Independent project · not affiliated with OpenAI")
         independent.textColor = .tertiaryLabelColor
         independent.font = .systemFont(ofSize: 11)
@@ -190,6 +199,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         let open = NSButton(title: "Open", target: self, action: #selector(openProfileButton(_:)))
         open.bezelStyle = .rounded
         open.controlSize = .large
+        if #available(macOS 26.0, *) {
+            open.bezelStyle = .glass
+        }
         open.identifier = NSUserInterfaceItemIdentifier(profile.id.uuidString)
         open.setAccessibilityLabel("Open \(profile.name) in Codex")
         open.isEnabled = !busy

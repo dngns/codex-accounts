@@ -8,11 +8,11 @@ permissions:
   contents: read
 jobs:
   build:
-    runs-on: macos-15
+    runs-on: macos-26
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
       - run: bash scripts/test.sh
-      - run: xcrun swift -module-cache-path .build/module-cache scripts/render-showcase.swift
+      - run: xcrun swift -module-cache-path .build/module-cache scripts/render-showcase.swift --checks-only
       - run: bash scripts/build.sh

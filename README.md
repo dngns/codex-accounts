@@ -9,14 +9,14 @@
   <img src="assets/badge-macos.svg" alt="macOS 13 or later · universal binary">
 </p>
 <p align="center">
-  <a href="https://github.com/dngns/codex-accounts/releases/tag/v0.1.5-preview.1"><img src="assets/download.svg" width="256" alt="Download macOS preview"></a>
+  <a href="https://github.com/dngns/codex-accounts/releases/tag/v0.1.6-preview.1"><img src="assets/download.svg" width="256" alt="Download macOS preview"></a>
 </p>
 <p align="center">
   <a href="#get-started">Get started</a> · <a href="#your-login-stays-with-the-official-app">Privacy</a> · <a href="docs/TECHNICAL.md">Technical docs</a> · <a href="docs/README.vi.md">Tiếng Việt</a>
 </p>
 
 > [!IMPORTANT]
-> **Experimental preview · independent of OpenAI.** The download is not notarized and macOS may block it. [Read the release notes](https://github.com/dngns/codex-accounts/releases/tag/v0.1.5-preview.1) before downloading. Do not disable Gatekeeper to run it.
+> **Experimental preview · independent of OpenAI.** The download is not notarized and macOS may block it. [Read the release notes](https://github.com/dngns/codex-accounts/releases/tag/v0.1.6-preview.1) before downloading. Do not disable Gatekeeper to run it.
 
 ![Codex Accounts native UI render with three example labels: Personal, Work and Client](assets/showcase.png)
 <p align="center"><sub>Rendered from the app's native interface with example labels. No real accounts are connected or shown.</sub></p>
@@ -28,6 +28,8 @@ Keep a separate place for each account without repeatedly swapping the default p
 | Separate profiles | Familiar sign-in | Small by design |
 | :--- | :--- | :--- |
 | A dedicated Codex home and desktop data folder for every profile. | Use the official OpenAI sign-in flow. The launcher has no password form. | Native Swift app. No Node, Python, Homebrew, or Terminal needed to use a packaged build. |
+
+On macOS 26 and later, Add profile, Open, and Privacy & security use native Liquid Glass controls. The showcase depicts the standard controls available on earlier macOS versions.
 
 ## Get started
 
@@ -43,8 +45,8 @@ You can move **Codex Accounts.app** into Applications. This launcher does not im
 
 | Package | Platform | Download |
 | :--- | :--- | :--- |
-| **0.1.5 Preview · Universal ZIP** | macOS 13+ · Apple Silicon and Intel build targets | [Download app](https://github.com/dngns/codex-accounts/releases/download/v0.1.5-preview.1/Codex-Accounts-preview-universal.zip) |
-| **SHA-256 checksums** | Verify archive integrity | [Download SHA256SUMS](https://github.com/dngns/codex-accounts/releases/download/v0.1.5-preview.1/SHA256SUMS) |
+| **0.1.6 Preview · Universal ZIP** | macOS 13+ · Apple Silicon and Intel build targets | [Download app](https://github.com/dngns/codex-accounts/releases/download/v0.1.6-preview.1/Codex-Accounts-preview-universal.zip) |
+| **SHA-256 checksums** | Verify archive integrity | [Download SHA256SUMS](https://github.com/dngns/codex-accounts/releases/download/v0.1.6-preview.1/SHA256SUMS) |
 
 **Before you install:** the official Codex app is required. This preview is ad-hoc signed, not Developer ID signed or notarized. Intel runtime, full multi-account login, and clean-Mac download acceptance are still pending. [Validation record →](VALIDATION.md)
 
@@ -99,7 +101,7 @@ No. This is an independent, experimental launcher, not affiliated with or endors
 
 ## Build, inspect, contribute
 
-Requires macOS and Xcode Command Line Tools for development. End users of a packaged build do not need a toolchain.
+Building requires the macOS 26 SDK (Xcode 26 or its Command Line Tools). End users of a packaged build do not need a toolchain.
 
 ```sh
 bash scripts/test.sh

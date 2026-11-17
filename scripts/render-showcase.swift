@@ -42,4 +42,4 @@ func run(_ executable: String, _ arguments: [String]) throws {
     guard task.terminationStatus == 0 else { fatalError("Showcase rendering failed.") }
 }
 try run("/usr/bin/xcrun", ["swiftc", "-module-cache-path", ".build/module-cache", "-framework", "AppKit", "-framework", "Security", "Sources/ProfileStore.swift", "Sources/OfficialApp.swift", output.appendingPathComponent("main.swift").path, "-o", output.appendingPathComponent("render").path])
-try run(output.appendingPathComponent("render").path, [])
+try run(output.appendingPathComponent("render").path, Array(CommandLine.arguments.dropFirst()))
