@@ -9,17 +9,17 @@
   <img src="assets/badge-macos.svg" alt="macOS 13 or later · universal binary">
 </p>
 <p align="center">
-  <a href="https://github.com/dngns/codex-accounts/releases/tag/v0.1.6-preview.1"><img src="assets/download.svg" width="256" alt="Download macOS preview"></a>
+  <a href="https://github.com/dngns/codex-accounts/releases/tag/v0.1.7-preview.1"><img src="assets/download.svg" width="256" alt="Download macOS preview"></a>
 </p>
 <p align="center">
   <a href="#get-started">Get started</a> · <a href="#your-login-stays-with-the-official-app">Privacy</a> · <a href="docs/TECHNICAL.md">Technical docs</a> · <a href="docs/README.vi.md">Tiếng Việt</a>
 </p>
 
 > [!IMPORTANT]
-> **Experimental preview · independent of OpenAI.** The download is not notarized and macOS may block it. [Read the release notes](https://github.com/dngns/codex-accounts/releases/tag/v0.1.6-preview.1) before downloading. Do not disable Gatekeeper to run it.
+> **Experimental preview · independent of OpenAI.** The download is not notarized and macOS may block it. [Read the release notes](https://github.com/dngns/codex-accounts/releases/tag/v0.1.7-preview.1) before downloading. Do not disable Gatekeeper to run it.
 
 ![Codex Accounts on macOS 26 with Liquid Glass controls and three example profiles](assets/profile-ui-liquid-glass.png)
-<p align="center"><sub>Version 0.1.6 on macOS 26.2 in Light Mode, with example profiles.</sub></p>
+<p align="center"><sub>Version 0.1.7 on macOS 26.2 in Light Mode, with example profiles.</sub></p>
 
 ### Personal. Work. Client. One small launcher.
 
@@ -29,14 +29,14 @@ Keep a separate place for each account without repeatedly swapping the default p
 | :--- | :--- | :--- |
 | A dedicated Codex home and desktop data folder for every profile. | Use the official OpenAI sign-in flow. The launcher has no password form. | Native Swift app. No Node, Python, Homebrew, or Terminal needed to use a packaged build. |
 
-On macOS 26 and later, Add profile, Open, and Privacy & security use native Liquid Glass controls. macOS 13 through 15 use standard AppKit controls.
+On macOS 26 and later, the native Liquid Glass toolbar groups Add profile (+) and Privacy & security. Each profile has its own Open button. macOS 13 through 15 use standard AppKit controls.
 
 ## Get started
 
 ![Three steps: name a profile, open it, then sign in through the official app](assets/quickstart.png)
 
 1. **Install the official Codex desktop app** from OpenAI, then download and unzip this launcher.
-2. **Add a profile** such as Personal or Work. Click **Open** beside the profile you want to use.
+2. Use **Add profile** (the + button on macOS 26) to create a profile such as Personal or Work. Click **Open** beside the profile you want to use.
 3. **Sign in inside the official app.** Verify the email and workspace, then repeat for another account. Sign in to new profiles one at a time.
 
 You can move **Codex Accounts.app** into Applications. This launcher does not import or change your existing default account.
@@ -45,8 +45,8 @@ You can move **Codex Accounts.app** into Applications. This launcher does not im
 
 | Package | Platform | Download |
 | :--- | :--- | :--- |
-| **0.1.6 Preview · Universal ZIP** | macOS 13+ · Apple Silicon and Intel build targets | [Download app](https://github.com/dngns/codex-accounts/releases/download/v0.1.6-preview.1/Codex-Accounts-preview-universal.zip) |
-| **SHA-256 checksums** | Verify archive integrity | [Download SHA256SUMS](https://github.com/dngns/codex-accounts/releases/download/v0.1.6-preview.1/SHA256SUMS) |
+| **0.1.7 Preview · Universal ZIP** | macOS 13+ · Apple Silicon and Intel build targets | [Download app](https://github.com/dngns/codex-accounts/releases/download/v0.1.7-preview.1/Codex-Accounts-preview-universal.zip) |
+| **SHA-256 checksums** | Verify archive integrity | [Download SHA256SUMS](https://github.com/dngns/codex-accounts/releases/download/v0.1.7-preview.1/SHA256SUMS) |
 
 **Before you install:** the official Codex app is required. This preview is ad-hoc signed, not Developer ID signed or notarized. Intel runtime, full multi-account login, and clean-Mac download acceptance are still pending. [Validation record →](VALIDATION.md)
 

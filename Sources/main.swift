@@ -9,7 +9,11 @@ final class ProfileCardView: NSView {
         let path = NSBezierPath(roundedRect: bounds.insetBy(dx: 0.5, dy: 0.5), xRadius: 12, yRadius: 12)
         NSColor.controlBackgroundColor.setFill()
         path.fill()
-        NSColor.separatorColor.withAlphaComponent(0.55).setStroke()
+        if #available(macOS 26.0, *) {
+            NSColor.separatorColor.withAlphaComponent(0.32).setStroke()
+        } else {
+            NSColor.separatorColor.withAlphaComponent(0.55).setStroke()
+        }
         path.lineWidth = 0.5
         path.stroke()
     }
@@ -21,7 +25,7 @@ final class ProfileCardView: NSView {
 }
 
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate, NSToolbarDelegate {
     var window: NSWindow!
     let table = NSTableView()
     let status = NSTextField(wrappingLabelWithString: "")
@@ -31,6 +35,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         didSet { updateControls() }
     }
     let addButton = NSButton()
+    private let addItemID = NSToolbarItem.Identifier("addProfile")
+    private let privacyItemID = NSToolbarItem.Identifier("privacy")
+    private weak var addToolbarItem: NSToolbarItem?
     let countLabel = NSTextField(labelWithString: "")
     let emptyState = NSStackView()
 
@@ -67,11 +74,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         addButton.imagePosition = .imageLeading
         addButton.bezelStyle = .rounded
         addButton.controlSize = .large
-        if #available(macOS 26.0, *) {
-            addButton.bezelStyle = .glass
-            addButton.bezelColor = .controlAccentColor
-            addButton.tintProminence = .primary
-        }
         addButton.target = self
         addButton.action = #selector(addProfile)
         addButton.setAccessibilityLabel("Add a new profile")
@@ -127,10 +129,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         privacy.bezelStyle = .inline
         privacy.isBordered = false
         privacy.font = .systemFont(ofSize: 12)
-        if #available(macOS 26.0, *) {
-            privacy.isBordered = true
-            privacy.bezelStyle = .glass
-        }
         let independent = NSTextField(labelWithString: "Independent project · not affiliated with OpenAI")
         independent.textColor = .tertiaryLabelColor
         independent.font = .systemFont(ofSize: 11)
@@ -139,6 +137,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         let separator = NSBox()
         separator.boxType = .separator
         let stack = NSStackView(views: [header, countLabel, scroll, status, separator, footer])
+        if #available(macOS 26.0, *) {
+            let toolbar = NSToolbar(identifier: "Profile actions")
+            toolbar.delegate = self
+            toolbar.displayMode = .iconOnly
+            window.toolbarStyle = .unified
+            window.toolbar = toolbar
+            addButton.isHidden = true
+            privacy.isHidden = true
+            subtitle.isHidden = true
+            countLabel.isHidden = true
+            table.rowHeight = 64
+            window.setContentSize(NSSize(width: 640, height: 440))
+        }
         stack.orientation = .vertical
         stack.alignment = .leading
         stack.spacing = 16
@@ -162,6 +173,37 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
     }
 
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
+
+    func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        [.flexibleSpace, addItemID, privacyItemID]
+    }
+
+    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
+        toolbarAllowedItemIdentifiers(toolbar)
+    }
+
+    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier,
+                 willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
+        let item = NSToolbarItem(itemIdentifier: itemIdentifier)
+        item.target = self
+        switch itemIdentifier {
+        case addItemID:
+            item.label = "Add profile"
+            item.image = NSImage(systemSymbolName: "plus", accessibilityDescription: "Add profile")
+            item.action = #selector(addProfile)
+            item.autovalidates = false
+            item.isEnabled = !busy
+            addToolbarItem = item
+        case privacyItemID:
+            item.label = "Privacy & security"
+            item.image = NSImage(systemSymbolName: "shield", accessibilityDescription: "Privacy & security")
+            item.action = #selector(showPrivacy)
+        default:
+            return nil
+        }
+        item.toolTip = item.label
+        return item
+    }
     func numberOfRows(in tableView: NSTableView) -> Int { profiles.count }
     func selectionShouldChange(in tableView: NSTableView) -> Bool { false }
 
@@ -200,7 +242,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         open.bezelStyle = .rounded
         open.controlSize = .large
         if #available(macOS 26.0, *) {
-            open.bezelStyle = .glass
+            open.controlSize = .regular
         }
         open.identifier = NSUserInterfaceItemIdentifier(profile.id.uuidString)
         open.setAccessibilityLabel("Open \(profile.name) in Codex")
@@ -228,6 +270,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
 
     func updateControls() {
         addButton.isEnabled = !busy
+        addToolbarItem?.isEnabled = !busy
         table.reloadData()
     }
 

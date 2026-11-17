@@ -2,7 +2,7 @@
 
 [Back to README](../README.md)
 
-The README uses [a live capture of the 0.1.6 fixture window](../assets/profile-ui-liquid-glass.png) on macOS 26.2 in Light Mode. It shows sample profile labels. Capture the live window when refreshing this image so the system composites the Liquid Glass material.
+The README uses [a live capture of the 0.1.7 fixture window](../assets/profile-ui-liquid-glass.png) on macOS 26.2 in Light Mode. It shows sample profile labels. Capture the live window when refreshing this image so the system composites the Liquid Glass material.
 
 `assets/showcase.png` is an **offscreen native UI render**, not a screenshot of real signed-in accounts. The Personal, Work, and Client names are fixture labels. No account is connected and no profile store is opened during rendering.
 

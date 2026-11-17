@@ -1,8 +1,8 @@
 <p align="center">
   <img src="https://raw.githubusercontent.com/dngns/codex-accounts/main/assets/AppIcon.png" width="80" alt="Codex Accounts icon">
 </p>
-<h2 align="center">Native Liquid Glass controls</h2>
-<p align="center">Codex Accounts 0.1.6 Preview · Native macOS launcher · Independent of OpenAI</p>
+<h2 align="center">A cleaner Liquid Glass toolbar</h2>
+<p align="center">Codex Accounts 0.1.7 Preview · Native macOS launcher · Independent of OpenAI</p>
 
 
 ## Download for macOS
@@ -11,8 +11,8 @@ One universal app package for Apple Silicon and Intel build targets. Requires ma
 
 | File | For | Download |
 | :--- | :--- | :--- |
-| **Codex Accounts.app · ZIP** | Use the launcher | [Download universal preview](https://github.com/dngns/codex-accounts/releases/download/v0.1.6-preview.1/Codex-Accounts-preview-universal.zip) |
-| **SHA256SUMS** | Verify archive integrity | [Download checksums](https://github.com/dngns/codex-accounts/releases/download/v0.1.6-preview.1/SHA256SUMS) |
+| **Codex Accounts.app · ZIP** | Use the launcher | [Download universal preview](https://github.com/dngns/codex-accounts/releases/download/v0.1.7-preview.1/Codex-Accounts-preview-universal.zip) |
+| **SHA256SUMS** | Verify archive integrity | [Download checksums](https://github.com/dngns/codex-accounts/releases/download/v0.1.7-preview.1/SHA256SUMS) |
 
 > [!IMPORTANT]
 > **Preview, not notarized.** This package is ad-hoc signed, not Developer ID signed. macOS may block the download. Keep Gatekeeper enabled; do not remove quarantine to run it. A frictionless downloaded double-click release is still pending.
@@ -25,10 +25,11 @@ One universal app package for Apple Silicon and Intel build targets. Requires ma
 2. Choose **Add profile**, enter a label, then click **Open** beside that profile.
 3. Sign in through the official app and verify the email/workspace. Repeat for another account, one sign-in at a time.
 
-## What's new in 0.1.6
+## What's new in 0.1.7
 
-- **Liquid Glass on macOS 26 and later.** Add profile, the per-profile Open buttons, and Privacy & security use the system glass material. Add profile uses your system accent color.
-- **macOS 13–15 support.** The same controls use their standard AppKit styles on older releases.
+- **Native Liquid Glass toolbar.** Add profile and Privacy & security are grouped beside the window title.
+- **Clearer profile actions.** Profile rows are more compact on macOS 26, with readable Open buttons and lighter outlines.
+- **macOS 13–15 support.** On earlier systems, Add profile appears in the header and Privacy & security appears in the footer.
 
 The launcher still creates separate profile folders, verifies the selected official app's signature, and leaves authentication to that app. It has no built-in networking, telemetry, password form, or token import.
 
@@ -52,4 +53,4 @@ The showcase is a source-derived native UI render with fixture labels, not proof
 
 ---
 
-[Source at this version](https://github.com/dngns/codex-accounts/tree/v0.1.6-preview.1) · [Changes since 0.1.5](https://github.com/dngns/codex-accounts/compare/v0.1.5-preview.1...v0.1.6-preview.1) · [Security](https://github.com/dngns/codex-accounts/blob/main/SECURITY.md) · [Licensing](https://github.com/dngns/codex-accounts/blob/main/LICENSING.md) · [Validation](https://github.com/dngns/codex-accounts/blob/main/VALIDATION.md)
+[Source at this version](https://github.com/dngns/codex-accounts/tree/v0.1.7-preview.1) · [Changes since 0.1.6](https://github.com/dngns/codex-accounts/compare/v0.1.6-preview.1...v0.1.7-preview.1) · [Security](https://github.com/dngns/codex-accounts/blob/main/SECURITY.md) · [Licensing](https://github.com/dngns/codex-accounts/blob/main/LICENSING.md) · [Validation](https://github.com/dngns/codex-accounts/blob/main/VALIDATION.md)
