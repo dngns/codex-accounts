@@ -2,6 +2,8 @@
 
 [Back to README](../README.md)
 
+The README banner, `assets/showcase-liquid-glass.png`, uses the content area of the live macOS 26 development build with sample profiles. Capture the live app when updating this banner so the window server renders the Liquid Glass controls.
+
 `assets/showcase.png` is an **offscreen native UI render**, not a screenshot of real signed-in accounts. The Personal, Work, and Client names are fixture labels. No account is connected and no profile store is opened during rendering.
 
 The 0.1.4 UI uses a separate Open button on each profile row. `assets/profile-ui-light.png` and `assets/profile-ui-dark.png` show the same fixture interface in both native appearances. The renderer replaces the final app-launch boundary with a recorder and runs eight checks against the actual UI handlers: per-row UUID routing, reordered profiles, stale buttons, busy controls, empty state, and a long profile label. It never launches the official app.

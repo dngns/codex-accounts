@@ -25,7 +25,7 @@ final class ProfileCardView: NSView {
 }
 
 @MainActor
-final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate, NSToolbarDelegate {
+final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource, NSTableViewDelegate {
     var window: NSWindow!
     let table = NSTableView()
     let status = NSTextField(wrappingLabelWithString: "")
@@ -35,9 +35,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         didSet { updateControls() }
     }
     let addButton = NSButton()
-    private let addItemID = NSToolbarItem.Identifier("addProfile")
-    private let privacyItemID = NSToolbarItem.Identifier("privacy")
-    private weak var addToolbarItem: NSToolbarItem?
     let countLabel = NSTextField(labelWithString: "")
     let emptyState = NSStackView()
 
@@ -77,7 +74,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         addButton.target = self
         addButton.action = #selector(addProfile)
         addButton.setAccessibilityLabel("Add a new profile")
-        let header = NSStackView(views: [titles, NSView(), addButton])
+        let header = NSStackView(views: [titles, NSView()])
         header.alignment = .centerY
         header.distribution = .fill
 
@@ -124,7 +121,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
 
         status.textColor = .secondaryLabelColor
         status.font = .systemFont(ofSize: 12)
-        status.stringValue = "Sign in and verify your account in the Codex window."
+        status.stringValue = ""
+        status.isHidden = true
         let privacy = NSButton(title: "Privacy & security", target: self, action: #selector(showPrivacy))
         privacy.bezelStyle = .inline
         privacy.isBordered = false
@@ -132,24 +130,38 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         let independent = NSTextField(labelWithString: "Independent project · not affiliated with OpenAI")
         independent.textColor = .tertiaryLabelColor
         independent.font = .systemFont(ofSize: 11)
-        let footer = NSStackView(views: [independent, NSView(), privacy])
+        let footer = NSStackView(views: [independent, NSView()])
         footer.alignment = .centerY
         let separator = NSBox()
         separator.boxType = .separator
-        let stack = NSStackView(views: [header, countLabel, scroll, status, separator, footer])
+        let profileList: NSView
         if #available(macOS 26.0, *) {
-            let toolbar = NSToolbar(identifier: "Profile actions")
-            toolbar.delegate = self
-            toolbar.displayMode = .iconOnly
-            window.toolbarStyle = .unified
-            window.toolbar = toolbar
-            addButton.isHidden = true
-            privacy.isHidden = true
+            title.stringValue = "Profiles"
             subtitle.isHidden = true
             countLabel.isHidden = true
-            table.rowHeight = 64
-            window.setContentSize(NSSize(width: 640, height: 440))
+            table.rowHeight = 56
+            table.intercellSpacing = .zero
+            table.gridStyleMask = .solidHorizontalGridLineMask
+            table.gridColor = .separatorColor
+            window.minSize = NSSize(width: 490, height: 365)
+            window.setContentSize(NSSize(width: 540, height: 390))
+            header.addArrangedSubview(profileActions(privacy: privacy))
+            let list = ProfileCardView()
+            scroll.translatesAutoresizingMaskIntoConstraints = false
+            list.addSubview(scroll)
+            NSLayoutConstraint.activate([
+                scroll.topAnchor.constraint(equalTo: list.topAnchor, constant: 6),
+                scroll.bottomAnchor.constraint(equalTo: list.bottomAnchor, constant: -6),
+                scroll.leadingAnchor.constraint(equalTo: list.leadingAnchor, constant: 10),
+                scroll.trailingAnchor.constraint(equalTo: list.trailingAnchor, constant: -10)
+            ])
+            profileList = list
+        } else {
+            header.addArrangedSubview(addButton)
+            footer.addArrangedSubview(privacy)
+            profileList = scroll
         }
+        let stack = NSStackView(views: [header, countLabel, profileList, status, separator, footer])
         stack.orientation = .vertical
         stack.alignment = .leading
         stack.spacing = 16
@@ -161,8 +173,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
             stack.topAnchor.constraint(equalTo: root.topAnchor, constant: 26),
             stack.bottomAnchor.constraint(equalTo: root.bottomAnchor, constant: -20),
             header.widthAnchor.constraint(equalTo: stack.widthAnchor),
-            scroll.widthAnchor.constraint(equalTo: stack.widthAnchor),
-            scroll.heightAnchor.constraint(greaterThanOrEqualToConstant: 170),
+            profileList.widthAnchor.constraint(equalTo: stack.widthAnchor),
+            profileList.heightAnchor.constraint(greaterThanOrEqualToConstant: 170),
             separator.widthAnchor.constraint(equalTo: stack.widthAnchor),
             footer.widthAnchor.constraint(equalTo: stack.widthAnchor)
         ])
@@ -172,45 +184,45 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         NSApp.activate(ignoringOtherApps: true)
     }
 
+    @available(macOS 26.0, *)
+    private func profileActions(privacy: NSButton) -> NSGlassEffectView {
+        addButton.isBordered = false
+        addButton.font = .systemFont(ofSize: 13, weight: .semibold)
+        privacy.image = NSImage(systemSymbolName: "lock.shield", accessibilityDescription: nil)
+        privacy.imagePosition = .imageOnly
+        privacy.setAccessibilityLabel("Privacy & security")
+        privacy.toolTip = "Privacy & security"
+        let divider = NSBox()
+        divider.boxType = .separator
+
+        let actions = NSStackView(views: [addButton, divider, privacy])
+        actions.alignment = .centerY
+        actions.spacing = 9
+        actions.edgeInsets = NSEdgeInsets(top: 4, left: 14, bottom: 4, right: 8)
+        NSLayoutConstraint.activate([
+            divider.widthAnchor.constraint(equalToConstant: 1),
+            divider.heightAnchor.constraint(equalToConstant: 16),
+            addButton.heightAnchor.constraint(greaterThanOrEqualToConstant: 34),
+            privacy.heightAnchor.constraint(equalToConstant: 34),
+            privacy.widthAnchor.constraint(equalToConstant: 30)
+        ])
+
+        let glass = NSGlassEffectView()
+        glass.cornerRadius = 21
+        glass.contentView = actions
+        return glass
+    }
+
     func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool { true }
 
-    func toolbarAllowedItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        [.flexibleSpace, addItemID, privacyItemID]
-    }
-
-    func toolbarDefaultItemIdentifiers(_ toolbar: NSToolbar) -> [NSToolbarItem.Identifier] {
-        toolbarAllowedItemIdentifiers(toolbar)
-    }
-
-    func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier itemIdentifier: NSToolbarItem.Identifier,
-                 willBeInsertedIntoToolbar flag: Bool) -> NSToolbarItem? {
-        let item = NSToolbarItem(itemIdentifier: itemIdentifier)
-        item.target = self
-        switch itemIdentifier {
-        case addItemID:
-            item.label = "Add profile"
-            item.image = NSImage(systemSymbolName: "plus", accessibilityDescription: "Add profile")
-            item.action = #selector(addProfile)
-            item.autovalidates = false
-            item.isEnabled = !busy
-            addToolbarItem = item
-        case privacyItemID:
-            item.label = "Privacy & security"
-            item.image = NSImage(systemSymbolName: "shield", accessibilityDescription: "Privacy & security")
-            item.action = #selector(showPrivacy)
-        default:
-            return nil
-        }
-        item.toolTip = item.label
-        return item
-    }
     func numberOfRows(in tableView: NSTableView) -> Int { profiles.count }
     func selectionShouldChange(in tableView: NSTableView) -> Bool { false }
 
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let profile = profiles[row]
         let cell = NSTableCellView()
-        let card = ProfileCardView()
+        let card: NSView
+        if #available(macOS 26.0, *) { card = NSView() } else { card = ProfileCardView() }
         card.translatesAutoresizingMaskIntoConstraints = false
         cell.addSubview(card)
         let content = card
@@ -243,6 +255,8 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
         open.controlSize = .large
         if #available(macOS 26.0, *) {
             open.controlSize = .regular
+            open.image = NSImage(systemSymbolName: "arrow.up.right", accessibilityDescription: nil)
+            open.imagePosition = .imageTrailing
         }
         open.identifier = NSUserInterfaceItemIdentifier(profile.id.uuidString)
         open.setAccessibilityLabel("Open \(profile.name) in Codex")
@@ -270,7 +284,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
 
     func updateControls() {
         addButton.isEnabled = !busy
-        addToolbarItem?.isEnabled = !busy
         table.reloadData()
     }
 
@@ -356,6 +369,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSTableViewDataSource,
             process.standardOutput = FileHandle.nullDevice
             process.standardError = FileHandle.nullDevice
             busy = true
+            status.isHidden = false
             status.stringValue = "Opening \(profile.name)…"
             process.terminationHandler = { task in
                 let succeeded = task.terminationStatus == 0

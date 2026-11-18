@@ -7,14 +7,18 @@
 > [!IMPORTANT]
 > Đây là bản thử nghiệm độc lập, không được OpenAI bảo trợ. App chưa được ký Developer ID hoặc notarize, nên macOS có thể chặn bản tải xuống. Không tắt Gatekeeper hoặc xóa quarantine để chạy bản thử.
 
-Trên macOS 26 trở lên, thanh công cụ Liquid Glass gom nút thêm profile (+) và quyền riêng tư. Mỗi profile có nút Open riêng. Trên macOS 13 đến 15, app dùng kiểu nút AppKit tiêu chuẩn.
+![Bản phát triển Codex Accounts với nhóm nút Liquid Glass phía trên danh sách profile](../assets/showcase-liquid-glass.png)
+
+*Ảnh bản phát triển trên macOS 26, dùng profile mẫu. Bản preview tải về hiện là 0.1.7.*
+
+Trong bản phát triển trên macOS 26 trở lên, **Add profile** và **Privacy & security** nằm trong một nhóm nút Liquid Glass cạnh tiêu đề **Profiles**. Danh sách ở bên dưới và mỗi dòng có nút **Open** riêng. Trên macOS 13 đến 15, app dùng nút AppKit tiêu chuẩn.
 
 ## Bắt đầu trong 3 bước
 
 ![Đặt tên profile, mở profile và đăng nhập trong app chính thức](../assets/quickstart.png)
 
 1. Cài app Codex chính thức từ OpenAI. Tải và giải nén launcher từ [Releases](https://github.com/dngns/codex-accounts/releases/tag/v0.1.7-preview.1).
-2. Mở **Codex Accounts.app** → **Add profile** (nút + trên macOS 26), đặt tên như Personal hoặc Work → nhấn **Open** cạnh profile đó.
+2. Mở **Codex Accounts.app** → **Add profile** (+), đặt tên như Personal hoặc Work → nhấn **Open** cạnh profile đó.
 3. Đăng nhập trong app chính thức, kiểm tra email/workspace. Lặp lại cho tài khoản khác; đăng nhập lần lượt từng profile mới.
 
 | Tải về | Dành cho |

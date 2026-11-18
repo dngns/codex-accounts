@@ -18,6 +18,9 @@
 > [!IMPORTANT]
 > **Experimental preview · independent of OpenAI.** The download is not notarized and macOS may block it. [Read the release notes](https://github.com/dngns/codex-accounts/releases/tag/v0.1.7-preview.1) before downloading. Do not disable Gatekeeper to run it.
 
+![Codex Accounts development build, with a Liquid Glass control group above the profile list](assets/showcase-liquid-glass.png)
+<p align="center"><sub>Development build on macOS 26, shown with sample profiles. The downloadable preview is 0.1.7.</sub></p>
+
 ### Personal. Work. Client. One small launcher.
 
 Keep a separate place for each account without repeatedly swapping the default profile. Add a label, open the profile, and sign in inside the official app.
@@ -26,14 +29,14 @@ Keep a separate place for each account without repeatedly swapping the default p
 | :--- | :--- | :--- |
 | A dedicated Codex home and desktop data folder for every profile. | Use the official OpenAI sign-in flow. The launcher has no password form. | Native Swift app. No Node, Python, Homebrew, or Terminal needed to use a packaged build. |
 
-On macOS 26 and later, the native Liquid Glass toolbar groups Add profile (+) and Privacy & security. Each profile has its own Open button. macOS 13 through 15 use standard AppKit controls.
+On macOS 26 and later, the development build places Add profile and Privacy & security in a Liquid Glass control group next to the Profiles heading. The profile list sits below it, with a dedicated Open button on each row. macOS 13 through 15 use standard AppKit controls.
 
 ## Get started
 
 ![Three steps: name a profile, open it, then sign in through the official app](assets/quickstart.png)
 
 1. **Install the official Codex desktop app** from OpenAI, then download and unzip this launcher.
-2. Use **Add profile** (the + button on macOS 26) to create a profile such as Personal or Work. Click **Open** beside the profile you want to use.
+2. Use **Add profile** (+) to create a profile such as Personal or Work. Click **Open** beside the profile you want to use.
 3. **Sign in inside the official app.** Verify the email and workspace, then repeat for another account. Sign in to new profiles one at a time.
 
 You can move **Codex Accounts.app** into Applications. This launcher does not import or change your existing default account.

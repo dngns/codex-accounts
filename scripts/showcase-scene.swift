@@ -92,10 +92,6 @@ MainActor.assumeIsolated {
     checks += 1
     delegate.busy = true
     precondition(!delegate.addButton.isEnabled && !rowButton(0).isEnabled, "Disable launch/add while busy.")
-    if #available(macOS 26.0, *) {
-        let add = delegate.window.toolbar?.items.first { $0.itemIdentifier.rawValue == "addProfile" }
-        precondition(add?.isEnabled == false, "Disable the toolbar Add profile action while busy.")
-    }
     checks += 1
     delegate.busy = false
     delegate.profiles = []
